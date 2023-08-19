@@ -28,16 +28,16 @@ namespace AspNetWebApi.Controllers
             return Ok(employees);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddEmployee(
-        //    [FromBody] Employee employeeRequest)
-        //{
-        //    employeeRequest.Id = Guid.NewGuid();
+        [HttpPost]
+        public async Task<IActionResult> AddEmployee(
+            [FromBody] Employee employeeRequest)
+        {
+            employeeRequest.Id = Guid.NewGuid();
 
-        //    await _fullStackDbContext.Employees.AddAsync(employeeRequest);
-        //    await _fullStackDbContext.SaveChangesAsync();
+            await _fullStackDbContext.Employees.AddAsync(employeeRequest);
+            await _fullStackDbContext.SaveChangesAsync();
 
-        //    return Ok(employeeRequest);
-        //}
+            return Ok(employeeRequest);
+        }
     }
 }
