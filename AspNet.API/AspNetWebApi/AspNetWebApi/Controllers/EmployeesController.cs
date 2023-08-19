@@ -1,20 +1,24 @@
 ﻿using AspNetWebApi.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetWebApi.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class EmployeesController : Controller
+    [ApiController]
+    //[Route("api/[controller]")]
+    public class EmployeesController : ControllerBase
     {
-        private FullStackDbContext _fullStackDbContext;
+        private FullStackDbContext _fullStackDbContext = null;
 
         public EmployeesController(FullStackDbContext fullStackDbContext)
         {
-            _fullStackDbContext = fullStackDbContext;
+           _fullStackDbContext = fullStackDbContext;
         }
+        //public EmployeesController()
+        //{
+
+        //}
 
         [HttpGet]
         public async Task<IActionResult> GetAllEployees()
@@ -24,16 +28,16 @@ namespace AspNetWebApi.Controllers
             return Ok(employees);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddEmployee(
-            [FromBody] Employee employeeRequest)
-        {
-            employeeRequest.Id = Guid.NewGuid();
+        //[HttpPost]
+        //public async Task<IActionResult> AddEmployee(
+        //    [FromBody] Employee employeeRequest)
+        //{
+        //    employeeRequest.Id = Guid.NewGuid();
 
-            await _fullStackDbContext.Employees.AddAsync(employeeRequest);
-            await _fullStackDbContext.SaveChangesAsync();
+        //    await _fullStackDbContext.Employees.AddAsync(employeeRequest);
+        //    await _fullStackDbContext.SaveChangesAsync();
 
-            return Ok(employeeRequest);
-        }
+        //    return Ok(employeeRequest);
+        //}
     }
 }
