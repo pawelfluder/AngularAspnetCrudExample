@@ -6,8 +6,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var connectionString = builder.Configuration.GetConnectionString("PersonContext");
 builder.Services.AddDbContext<FullStackDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FullStackConnectionString")));
+    options.UseSqlite(connectionString));
+
+builder.Services.AddDbContext<FullStackDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PersonContext"));
+        //sqlServerOptionsAction: SqlOptions =>
+        //{
+        //    SqlOptions.EnableRetryOnFailure(
+        //        maxRetryCount: 10,
+        //        maxRetryDelay: TimeSpan.FromSeconds(30),
+        //        errorNumbersToAdd: null);
+        //});
+});
 
 var app = builder.Build();
 
@@ -19,6 +32,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.MapGet("testing01", () =>
 {
