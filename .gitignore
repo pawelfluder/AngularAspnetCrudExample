@@ -3,6 +3,8 @@
 Binaries
 folder-to-ignore
 Testing_01
+**/*.db-shm
+**/*.db-wal
 ####################
 
 # Most important
